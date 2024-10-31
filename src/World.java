@@ -36,6 +36,11 @@ public class World {
         Item suitofarmor = new Item("suitofarmor", "A suit of armor stands silently, guarding the entrance.");
         Item oldbook = new Item("oldbook", "An old, dusty book lies on a pedestal.");
         Item flickeringcandle = new Item("candle", "A flickering candle casts eerie shadows on the walls.");
+        Combination combination = new Combination("combination", "It's a strange combination lock.");
+        kitchenRoom.addItem(combination);
+        
+        Safe safe = new Safe("safe", "It's an impressive safe!");
+        diningRoom.addItem(safe);
         
      
         grandEntrance.addItem(suitofarmor);
@@ -67,5 +72,10 @@ public class World {
         return graveyard;
     }
 }
+//Task 6: Update the Game class (Part II)
+//Add cases for the commands "use" and "open" to your switch statement. Both will be similar to
+//the "take" command you should already have. Once you have the Item, either from the current
+//room or the player's inventory, call the appropriate method: use() or open().
+//Play your game and make sure you can open the safe and retrieve the diamond.
 
 

@@ -1,6 +1,6 @@
 
 
-import java.util.ArrayList;
+import java.util.ArrayList; 
 import java.util.Scanner;
 
 public class Game {
@@ -18,8 +18,8 @@ public class Game {
         String command; 
 
         do {
-            System.out.println(currentRoom);
-            System.out.print("What do you want to do? ");
+            print(currentRoom);
+            print("What do you want to do? ");
             command = input.nextLine().trim();
             String[] words = command.split(" "); 
             switch (words[0].toLowerCase()) {
@@ -31,20 +31,20 @@ public class Game {
                 case "d":
                     Room nextRoom = currentRoom.getExit(words[0].charAt(0));
                     if (nextRoom != null) {
-                        System.out.println("Moving to: " + nextRoom);
+                        print("Moving to: " + nextRoom);
                         currentRoom = nextRoom;
                     } else {
-                        System.out.println("You can't go that way.");
+                        print("You can't go that way.");
                     }
                     break;
 
                 case "x":
-                    System.out.println("Thanks for walking through my game!");
+                    print("Thanks for walking through my game!");
                     break;
 
                 case "take":
                     if (words.length < 2) {
-                        System.out.println("Take what?");
+                        print("Take what?");
                     } else {
                         takeItem(words[1]);
                     }
@@ -52,7 +52,7 @@ public class Game {
 
                 case "look":
                     if (words.length < 2) {
-                        System.out.println("Look at what?");
+                        print("Look at what?");
                     } else {
                         lookAtItem(words[1]);
                     }
@@ -62,8 +62,24 @@ public class Game {
                     showInventory();
                     break;
 
+                case "use":
+                    if (words.length < 2) {
+                        print("Use what?");
+                    } else {
+                        useItem(words[1]);
+                    }
+                    break;
+
+                case "open":
+                    if (words.length < 2) {
+                        print("Open what?");
+                    } else {
+                        openItem(words[1]);
+                    }
+                    break;
+
                 default:
-                    System.out.println("I don't know what that means.");
+                    print("I don't know what that means.");
             }
         } while (!command.equals("x"));
 
@@ -75,38 +91,79 @@ public class Game {
         if (item != null) {
             inventory.add(item);
             currentRoom.removeItem(itemName);
-            System.out.println("You took the " + item.getName() + ".");
+            print("You took the " + item.getName() + ".");
         } else {
-            System.out.println("No such item in this room.");
+            print("No such item in this room.");
         }
     }
 
     private static void lookAtItem(String itemName) {
         for (Item item : inventory) {
             if (item.getName().equalsIgnoreCase(itemName)) {
-                System.out.println(item.getDescription());
+                print(item.getDescription());
                 return;
             }
         }
         Item itemInRoom = currentRoom.getItem(itemName);
         if (itemInRoom != null) {
-            System.out.println(itemInRoom.getDescription());
+            print(itemInRoom.getDescription());
         } else {
-            System.out.println("There is no such item here.");
+            print("There is no such item here.");
         }
     }
 
     private static void showInventory() {
         if (inventory.isEmpty()) {
-            System.out.println("You are carrying nothing.");
+            print("You are carrying nothing.");
         } else {
-            System.out.println("You are carrying:");
+            print("You are carrying:");
             for (Item item : inventory) {
-                System.out.println("- " + item.getName());
+                print("- " + item.getName());
             }
         }
     }
+
+    private static void useItem(String itemName) {
+        Item item = getItemFromInventory(itemName);
+        if (item != null) {
+            item.use();  
+            print("You used the " + item.getName() + ".");
+        } else {
+            print("You don't have that item.");
+        }
+    }
+
+    private static void openItem(String itemName) {
+        Item item = getItemFromInventory(itemName);
+        if (item == null) {
+            item = currentRoom.getItem(itemName);
+        }
+        if (item != null) {
+            item.open(); 
+            print("You opened the " + item.getName() + ".");
+        } else {
+            print("No such item to open.");
+        }
+    }
+
+    public static void print(Object obj) {
+        System.out.println(obj.toString());
+    }
+
+    public static Room getCurrentRoom() {
+        return currentRoom;
+    }
+
+    public static Item getItemFromInventory(String itemName) {
+        for (Item item : inventory) {
+            if (item.getName().equalsIgnoreCase(itemName)) {
+                return item;
+            }
+        }
+        return null;
+    }
 }
+
 
 
 
