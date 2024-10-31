@@ -30,7 +30,7 @@ public class World {
 
         Item ghost = new Item("ghost", "There is a spooky ghost roaming around the graveyard.");
         Item knife = new Item("knife", "There is a bloody knife.");
-        Item hand = new Item("disembodied hand", "There is a disembodied hand crawling around on its fingers.");
+        Item hand = new Item("hand", "There is a disembodied hand crawling around on its fingers.");
         
         
         Item suitofarmor = new Item("suitofarmor", "A suit of armor stands silently, guarding the entrance.");

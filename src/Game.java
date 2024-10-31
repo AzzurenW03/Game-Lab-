@@ -1,34 +1,35 @@
- import java.util.ArrayList;
+
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game {
     static ArrayList<Item> inventory = new ArrayList<>();
-    private World world;
-    private Room currentRoom;
+    private static Room currentRoom;
 
-    public Game() {
-        world = new World();
-        currentRoom = world.getStartingRoom();
+    public static void main(String[] args) {
+        runGame();
     }
 
-    public void runGame() {
+    public static void runGame() {
+        World world = new World();
+        currentRoom = world.getStartingRoom();
         Scanner input = new Scanner(System.in);
-        String command;
+        String command; 
 
-        while (true) {
+        do {
             System.out.println(currentRoom);
             System.out.print("What do you want to do? ");
             command = input.nextLine().trim();
-
-            String[] words = command.split(" ");
-            switch (words[0]) {
+            String[] words = command.split(" "); 
+            switch (words[0].toLowerCase()) {
                 case "e":
                 case "w":
                 case "n":
                 case "s":
                 case "u":
                 case "d":
-                    Room nextRoom = currentRoom.getExit(command.charAt(0));
+                    Room nextRoom = currentRoom.getExit(words[0].charAt(0));
                     if (nextRoom != null) {
                         System.out.println("Moving to: " + nextRoom);
                         currentRoom = nextRoom;
@@ -39,7 +40,7 @@ public class Game {
 
                 case "x":
                     System.out.println("Thanks for walking through my game!");
-                    return; 
+                    break;
 
                 case "take":
                     if (words.length < 2) {
@@ -57,32 +58,36 @@ public class Game {
                     }
                     break;
 
+                case "inventory":
+                    showInventory();
+                    break;
+
                 default:
-                    System.out.println("Unknown command.");
+                    System.out.println("I don't know what that means.");
             }
-        }
+        } while (!command.equals("x"));
+
+        input.close();
     }
 
-    private void takeItem(String itemName) {
+    private static void takeItem(String itemName) {
         Item item = currentRoom.getItem(itemName);
         if (item != null) {
             inventory.add(item);
-            currentRoom.removeItem(itemName); 
+            currentRoom.removeItem(itemName);
             System.out.println("You took the " + item.getName() + ".");
         } else {
             System.out.println("No such item in this room.");
         }
     }
 
-    private void lookAtItem(String itemName) {
+    private static void lookAtItem(String itemName) {
         for (Item item : inventory) {
             if (item.getName().equalsIgnoreCase(itemName)) {
                 System.out.println(item.getDescription());
                 return;
             }
         }
-
-        
         Item itemInRoom = currentRoom.getItem(itemName);
         if (itemInRoom != null) {
             System.out.println(itemInRoom.getDescription());
@@ -91,8 +96,7 @@ public class Game {
         }
     }
 
-
-    private void showInventory() {
+    private static void showInventory() {
         if (inventory.isEmpty()) {
             System.out.println("You are carrying nothing.");
         } else {
@@ -101,11 +105,6 @@ public class Game {
                 System.out.println("- " + item.getName());
             }
         }
-    }
-
-    public static void main(String[] args) {
-        Game game = new Game();
-        game.runGame(); 
     }
 }
 
