@@ -37,7 +37,7 @@ public class World {
         Item oldbook = new Item("oldbook", "An old, dusty book lies on a pedestal.");
         Item flickeringcandle = new Item("candle", "A flickering candle casts eerie shadows on the walls.");
         Combination combination = new Combination("combination", "It's a strange combination lock.");
-        kitchenRoom.addItem(combination);
+        graveyard.addItem(combination);
         
         Safe safe = new Safe("safe", "It's an impressive safe!");
         diningRoom.addItem(safe);
@@ -67,7 +67,8 @@ public class World {
         creepyHallway.addExit('e', diningRoom);
         diningRoom.addExit('w', creepyHallway);
         creepyHallway.addExit('w', livingRoom);
-        livingRoom.addExit('d', basement);
+        livingRoom.addExit('u', kitchenRoom);
+        kitchenRoom.addExit('d', basement);
 
         return graveyard;
     }
