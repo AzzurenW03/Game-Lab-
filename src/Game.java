@@ -1,6 +1,6 @@
 
 
-import java.util.ArrayList; 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game {
@@ -15,13 +15,13 @@ public class Game {
         World world = new World();
         currentRoom = world.getStartingRoom();
         Scanner input = new Scanner(System.in);
-        String command; 
+        String command;
 
         do {
             print(currentRoom);
             print("What do you want to do? ");
             command = input.nextLine().trim();
-            String[] words = command.split(" "); 
+            String[] words = command.split(" ");
             switch (words[0].toLowerCase()) {
                 case "e":
                 case "w":
@@ -29,13 +29,7 @@ public class Game {
                 case "s":
                 case "u":
                 case "d":
-                    Room nextRoom = currentRoom.getExit(words[0].charAt(0));
-                    if (nextRoom != null) {
-                        print("Moving to: " + nextRoom);
-                        currentRoom = nextRoom;
-                    } else {
-                        print("You can't go that way.");
-                    }
+                    handleMovement(words[0].charAt(0)); 
                     break;
 
                 case "x":
@@ -84,6 +78,20 @@ public class Game {
         } while (!command.equals("x"));
 
         input.close();
+    }
+
+    private static void handleMovement(char direction) {
+        Room nextRoom = currentRoom.getExit(direction);
+        if (nextRoom != null) {
+            if (nextRoom.isLocked()) {
+                print("The " + nextRoom.getName() + " is locked. You can't go there.");
+            } else {
+                print("Moving to: " + nextRoom);
+                currentRoom = nextRoom;
+            }
+        } else {
+            print("You can't go that way.");
+        }
     }
 
     private static void takeItem(String itemName) {
@@ -163,6 +171,7 @@ public class Game {
         return null;
     }
 }
+
 
 
 
