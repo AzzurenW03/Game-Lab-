@@ -8,7 +8,7 @@ public class Torch extends Item {
     public void use() {
         Game.print("You light the torch, revealing a hidden passage!");
         Room currentRoom = Game.getCurrentRoom(); 
-        Room hiddenRoom = new Room("Secret Path", "You see a hidden path revealed by the light of the torch.");
+        Room hiddenRoom = new Room("Secret Path");
         currentRoom.addExit('n', hiddenRoom);
         
          

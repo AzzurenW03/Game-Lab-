@@ -2,15 +2,14 @@ import java.util.HashMap;
 
 public class Room {
     private String name;
-    private String description;
     private boolean locked;  
     private Item item;
     private HashMap<String, Item> items;
     private Room east, west, north, south, up, down;
+  
 
-    public Room(String name, String description) {
+    public Room(String name) {
         this.name = name;
-        this.description = description;
         this.locked = false;  
         items = new HashMap<>();
     }
@@ -20,7 +19,7 @@ public class Room {
     }
 
     public String getDescription() {
-        return description;
+        return Game.getRoomDescription(name);
     }
 
     public boolean isLocked() {
@@ -37,12 +36,18 @@ public class Room {
 
     public void addExit(char direction, Room room) {
         switch (direction) {
-            case 'e': east = room; break;
-            case 'w': west = room; break;
-            case 'n': north = room; break;
-            case 's': south = room; break;
-            case 'u': up = room; break;
-            case 'd': down = room; break;
+            case 'e': east = room; 
+            break;
+            case 'w': west = room; 
+            break;
+            case 'n': north = room; 
+            break;
+            case 's': south = room; 
+            break;
+            case 'u': up = room; 
+            break;
+            case 'd': down = room; 
+            break;
         }
     }
 
@@ -70,10 +75,14 @@ public class Room {
         items.remove(name.toLowerCase());
     }
 
+    
     public String toString() {
-        return description;
+        return getDescription(); 
     }
+    
+    
 }
+
 
 
 

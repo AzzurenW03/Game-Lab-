@@ -1,35 +1,52 @@
 
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Game {
     static ArrayList<Item> inventory = new ArrayList<>();
     private static Room currentRoom;
+    private static Key key;
+
+    private static Map<String, String> roomDescriptions = new HashMap<>();
+    
+   public static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
+        populateRoomDescriptions("rooms.txt");
         runGame();
     }
-
+    
     public static void runGame() {
         World world = new World();
         currentRoom = world.getStartingRoom();
-        Scanner input = new Scanner(System.in);
         String command;
 
         do {
             print(currentRoom);
+            print(getRoomDescription(currentRoom.getName())); 
             print("What do you want to do? ");
             command = input.nextLine().trim();
-            String[] words = command.split(" ");
-            switch (words[0].toLowerCase()) {
+            String[] words = command.split(" ", 2); 
+            String action = words[0].toLowerCase();  
+            String itemName;
+            if (words.length > 1) {
+                itemName = words[1];
+            } else {
+                itemName = "";
+            }
+            switch (action) {
                 case "e":
                 case "w":
                 case "n":
                 case "s":
                 case "u":
                 case "d":
-                    handleMovement(words[0].charAt(0)); 
+                    handleMovement(action.charAt(0)); 
                     break;
 
                 case "x":
@@ -37,18 +54,18 @@ public class Game {
                     break;
 
                 case "take":
-                    if (words.length < 2) {
+                    if (itemName.isEmpty()) {
                         print("Take what?");
                     } else {
-                        takeItem(words[1]);
+                        takeItem(itemName);
                     }
                     break;
 
                 case "look":
-                    if (words.length < 2) {
+                    if (itemName.isEmpty()) {
                         print("Look at what?");
                     } else {
-                        lookAtItem(words[1]);
+                        lookAtItem(itemName);
                     }
                     break;
 
@@ -57,18 +74,18 @@ public class Game {
                     break;
 
                 case "use":
-                    if (words.length < 2) {
+                    if (itemName.isEmpty()) {
                         print("Use what?");
                     } else {
-                        useItem(words[1]);
+                        useItem(itemName);
                     }
                     break;
 
                 case "open":
-                    if (words.length < 2) {
+                    if (itemName.isEmpty()) {
                         print("Open what?");
                     } else {
-                        openItem(words[1]);
+                        openItem(itemName);
                     }
                     break;
 
@@ -80,19 +97,21 @@ public class Game {
         input.close();
     }
 
+
     private static void handleMovement(char direction) {
         Room nextRoom = currentRoom.getExit(direction);
         if (nextRoom != null) {
             if (nextRoom.isLocked()) {
                 print("The " + nextRoom.getName() + " is locked. You can't go there.");
             } else {
-                print("Moving to: " + nextRoom);
+                print("Moving to: " + nextRoom.getName());
                 currentRoom = nextRoom;
             }
         } else {
             print("You can't go that way.");
         }
     }
+
 
     private static void takeItem(String itemName) {
         Item item = currentRoom.getItem(itemName);
@@ -170,7 +189,47 @@ public class Game {
         }
         return null;
     }
+
+    
+    public static void populateRoomDescriptions(String filename) {
+        try {
+            Scanner input = new Scanner(new File(filename));
+            String currentRoomName = null;
+            StringBuilder description = new StringBuilder();
+            while (input.hasNextLine()) {
+                String line = input.nextLine().trim();
+
+                if (line.startsWith("Room: ")) { 
+                    if (currentRoomName != null) {
+                        
+                        roomDescriptions.put(currentRoomName, description.toString());
+                    }
+                    
+                    currentRoomName = line.substring(6).trim();
+                    description = new StringBuilder(); 
+                } else {
+                
+                    description.append(line).append("\n");
+                }
+            }
+
+            if (currentRoomName != null) {
+                roomDescriptions.put(currentRoomName, description.toString());
+            }
+
+            input.close();
+
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found!!!");
+        }
+    }
+    
+    public static String getRoomDescription(String roomName) {
+        return roomDescriptions.getOrDefault(roomName, "You don't see anything special here.");
+    }
+   
 }
+
 
 
 

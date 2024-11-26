@@ -14,10 +14,15 @@ public class Key extends Item {
     
     public void use() {
         if (roomToUnlock != null && roomToUnlock.isLocked()) {
-            roomToUnlock.unlock(); 
-            Game.print("You used the " + this.getName() + " and unlocked the " + roomToUnlock.getName() + "!");
+            if (Game.getCurrentRoom().getName().equals("Grand Entrance")) {
+                roomToUnlock.unlock();
+                Game.print("You used the " + getName() + " and unlocked the " + roomToUnlock.getName() + "!");
+            } else { 
+                Game.print("You must be in an adjacent room to use this key.");
+            }
         } else {
             Game.print("This key doesn't seem to fit anywhere.");
         }
     }
-}
+    
+    }
