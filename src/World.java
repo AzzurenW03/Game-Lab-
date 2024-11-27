@@ -50,6 +50,11 @@ public class World {
         Item oldMap = new OldMap();
         Item spellbook = new Spellbook();
         
+        NPC puppy = new NPC("Puppy", "Bark, Bark. I can talk as well");
+        blueDoorRoom.addNPC(puppy);
+        Ghost ghostNPC = new Ghost();
+        graveyard.addNPC(ghostNPC);
+        
         graveyard.addItem(ghost);
         graveyard.addItem(key);  
         bathroom.addItem(knife);

@@ -68,7 +68,14 @@ public class Game {
                         lookAtItem(itemName);
                     }
                     break;
-
+               
+                case "talk":
+                    if (itemName.isEmpty()) {
+                        print("Talk to whom?");
+                    } else {
+                        talkToNPC(itemName);
+                    }
+                    break;
                 case "inventory":
                     showInventory();
                     break;
@@ -170,6 +177,15 @@ public class Game {
             print("You opened the " + item.getName() + ".");
         } else {
             print("No such item to open.");
+        }
+    }
+    
+    private static void talkToNPC(String npcName) {
+        NPC npc = currentRoom.getNPC(npcName);
+        if (npc != null) {
+            npc.talk(); 
+        } else {
+            print("There is no " + npcName + " here to talk to.");
         }
     }
 

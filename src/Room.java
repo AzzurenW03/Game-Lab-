@@ -5,6 +5,7 @@ public class Room {
     private boolean locked;  
     private Item item;
     private HashMap<String, Item> items;
+    private HashMap<String, NPC> npcs;
     private Room east, west, north, south, up, down;
   
 
@@ -12,6 +13,7 @@ public class Room {
         this.name = name;
         this.locked = false;  
         items = new HashMap<>();
+        npcs = new HashMap<>();
     }
 
     public String getName() {
@@ -74,12 +76,22 @@ public class Room {
     public void removeItem(String name) {
         items.remove(name.toLowerCase());
     }
-
+    
+    public void addNPC(NPC npc) {
+        npcs.put(npc.getName().toLowerCase(), npc);
+    }
+    
+    public NPC getNPC(String name) {
+        return npcs.get(name.toLowerCase());
+    }
+    
+    public void removeNPC(String name) {
+        npcs.remove(name.toLowerCase());
+    }
     
     public String toString() {
         return getDescription(); 
     }
-    
     
 }
 
