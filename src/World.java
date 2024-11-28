@@ -70,23 +70,25 @@ public class World {
         lockedRoom.lock(); 
        
 
-        graveyard.addExit('e', grandEntrance);    
-        grandEntrance.addExit('w', graveyard);    
-        grandEntrance.addExit('n', blueDoorRoom); 
-        blueDoorRoom.addExit('s', grandEntrance); 
-        grandEntrance.addExit('s', lockedRoom);   
-        lockedRoom.addExit('n', grandEntrance);          
-        stairs.addExit('u', creepyHallway);       
-        creepyHallway.addExit('w', bathroom);     
-        bathroom.addExit('e', creepyHallway);     
-        creepyHallway.addExit('e', mainBedroom);  
-        mainBedroom.addExit('w', creepyHallway);  
-        creepyHallway.addExit('u', diningRoom);   
-        diningRoom.addExit('w', creepyHallway);   
-        creepyHallway.addExit('w', kitchenRoom); 
-        kitchenRoom.addExit('e', creepyHallway);  
-        kitchenRoom.addExit('d', basement);       
-        basement.addExit('u', kitchenRoom);       
+        graveyard.addExit('e', grandEntrance);      
+        grandEntrance.addExit('w', graveyard);      
+        grandEntrance.addExit('n', blueDoorRoom);   
+        blueDoorRoom.addExit('s', grandEntrance);   
+        grandEntrance.addExit('s', lockedRoom);    
+        lockedRoom.addExit('n', grandEntrance);     
+        stairs.addExit('u', creepyHallway);         
+        creepyHallway.addExit('d', stairs);         
+        creepyHallway.addExit('w', bathroom);       
+        bathroom.addExit('e', creepyHallway);       
+        creepyHallway.addExit('e', mainBedroom);    
+        mainBedroom.addExit('w', creepyHallway);    
+        creepyHallway.addExit('u', diningRoom);     
+        diningRoom.addExit('d', creepyHallway);     
+        creepyHallway.addExit('s', kitchenRoom);    
+        kitchenRoom.addExit('n', creepyHallway);    
+        kitchenRoom.addExit('d', basement);         
+        basement.addExit('u', kitchenRoom);        
+   
 
         
         
