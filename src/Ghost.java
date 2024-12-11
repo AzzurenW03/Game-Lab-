@@ -8,7 +8,7 @@ public class Ghost extends NPC {
     public void talk() {
     say("Boo! Welcome to my haunting grounds. Why are you here?");
     String[] options = {
-    		"I got lost, sorry!",
+    		"I got lost, sorry! Im looking for a key",
             "I'm here to explore your secrets."
     };
     getResponse(options);
@@ -17,11 +17,11 @@ public class Ghost extends NPC {
     public void response(int option) {
     switch(option) {
     case 1:
-    say("Lost, you say? You humans always stumble where you're not supposed to.");
+    say("Lost, you say? You humans always stumble where you're not supposed to. I have the key");
     break;
     case 2:
     say("Secrets? There are none, only despair. But beware, not all who seek them survive.");
-    Game.print("I don't understand what you mean.");
+    Game.print("I don't understand what you mean. Where is the key?");
     break;
     }
     }

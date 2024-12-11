@@ -41,19 +41,19 @@ public class World {
         Item flickeringcandle = new Item("flickeringcandle", "A candle flickers eerily, casting shadows on the walls.");
         
         Combination combination = new Combination("combination", "It's a strange combination lock.");
-        kitchenRoom.addItem(combination);
+        creepyHallway.addItem(combination);
         
         Safe safe = new Safe("safe", "It's an impressive safe!");
-        diningRoom.addItem(safe);
+        bathroom.addItem(safe);
         
         Item torch = new Torch();
-        Item oldMap = new OldMap();
+        Item oldmap = new OldMap();
         Item spellbook = new Spellbook();
         
-        NPC puppy = new NPC("Puppy", "Bark, Bark. I can talk as well");
-        blueDoorRoom.addNPC(puppy);
         Ghost ghostNPC = new Ghost();
         graveyard.addNPC(ghostNPC);
+       Puppy puppyNPC = new Puppy();
+       grandEntrance.addNPC(puppyNPC);
         
         graveyard.addItem(ghost);
         graveyard.addItem(key);  
@@ -62,22 +62,19 @@ public class World {
         grandEntrance.addItem(oldbook);
         grandEntrance.addItem(flickeringcandle);
         graveyard.addItem(torch);  
-        grandEntrance.addItem(oldMap);  
+        grandEntrance.addItem(oldmap);  
         blueDoorRoom.addItem(spellbook);  
         
         
-        blueDoorRoom.lock();  
-        lockedRoom.lock(); 
+        blueDoorRoom.lock(); 
        
-
+        
         graveyard.addExit('e', grandEntrance);
         grandEntrance.addExit('w', graveyard);      
         grandEntrance.addExit('n', blueDoorRoom);   
-        blueDoorRoom.addExit('s', grandEntrance);   
-        grandEntrance.addExit('s', lockedRoom);    
-        lockedRoom.addExit('n', grandEntrance);     
-        stairs.addExit('u', creepyHallway);         
-        creepyHallway.addExit('d', stairs);         
+        blueDoorRoom.addExit('s', grandEntrance);
+        grandEntrance.addExit('u', stairs);
+        stairs.addExit('u', creepyHallway);                  
         creepyHallway.addExit('w', bathroom);       
         bathroom.addExit('e', creepyHallway);       
         creepyHallway.addExit('e', mainBedroom);    

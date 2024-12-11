@@ -18,19 +18,13 @@ public class Game {
    public static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
-        populateRoomDescriptions("rooms.txt");
+//        populateRoomDescriptions("rooms.txt");
         currentRoom = World.buildWorld();
         gui = new GUI();
         print(currentRoom);
     
    }
     public static void processCommand(String command) {
-            World world = new World();
-            currentRoom = world.getStartingRoom();
-            print(currentRoom);
-            print(getRoomDescription(currentRoom.getName())); 
-            print("What do you want to do? ");
-            command = input.nextLine().trim();
             String[] words = command.split(" ", 2); 
             String action = words[0].toLowerCase();  
             String itemName;

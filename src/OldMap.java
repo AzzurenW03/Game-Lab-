@@ -1,7 +1,7 @@
 
 public class OldMap extends Item {
     public OldMap() {
-        super("Old Map", "An old, crumpled map with hidden rooms marked.");
+        super("OldMap", "An old, crumpled map with hidden rooms marked.");
     }
 
     

@@ -6,7 +6,7 @@ public class Spellbook extends Item {
 
     
     public void use() {
-        Game.print("You chant an incantation from the spellbook and the heavy iron door creaks open!");
+        Game.print("You chant an incantation from the spellbook and the heavy iron door creaks open! But you don't know Where");
         
     }
 }
