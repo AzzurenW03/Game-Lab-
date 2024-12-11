@@ -11,6 +11,7 @@ public class Game {
     static ArrayList<Item> inventory = new ArrayList<>();
     private static Room currentRoom;
     private static Key key;
+    private static GUI gui;
 
     private static Map<String, String> roomDescriptions = new HashMap<>();
     
@@ -18,9 +19,87 @@ public class Game {
 
     public static void main(String[] args) {
         populateRoomDescriptions("rooms.txt");
-        runGame();
-    }
+        currentRoom = World.buildWorld();
+        gui = new GUI();
+        print(currentRoom);
     
+   }
+    public static void processCommand(String command) {
+            World world = new World();
+            currentRoom = world.getStartingRoom();
+            print(currentRoom);
+            print(getRoomDescription(currentRoom.getName())); 
+            print("What do you want to do? ");
+            command = input.nextLine().trim();
+            String[] words = command.split(" ", 2); 
+            String action = words[0].toLowerCase();  
+            String itemName;
+            if (words.length > 1) {
+                itemName = words[1];
+            } else {
+                itemName = "";
+            }
+            switch (action) {
+            case "e":
+            case "w":
+            case "n":
+            case "s":
+            case "u":
+            case "d":
+                handleMovement(action.charAt(0)); 
+                break;
+
+            case "x":
+                print("Thanks for walking through my game!");
+                break;
+
+            case "take":
+                if (itemName.isEmpty()) {
+                    print("Take what?");
+                } else {
+                    takeItem(itemName);
+                }
+                break;
+
+            case "look":
+                if (itemName.isEmpty()) {
+                    print("Look at what?");
+                } else {
+                    lookAtItem(itemName);
+                }
+                break;
+           
+            case "talk":
+                if (itemName.isEmpty()) {
+                    print("Talk to whom?");
+                } else {
+                    talkToNPC(itemName);
+                }
+                break;
+            case "inventory":
+                showInventory();
+                break;
+
+            case "use":
+                if (itemName.isEmpty()) {
+                    print("Use what?");
+                } else {
+                    useItem(itemName);
+                }
+                break;
+
+            case "open":
+                if (itemName.isEmpty()) {
+                    print("Open what?");
+                } else {
+                    openItem(itemName);
+                }
+                break;
+
+            default:
+                print("I don't know what that means.");
+        }
+    }
     public static void runGame() {
         World world = new World();
         currentRoom = world.getStartingRoom();
@@ -189,10 +268,6 @@ public class Game {
         }
     }
 
-    public static void print(Object obj) {
-        System.out.println(obj.toString());
-    }
-
     public static Room getCurrentRoom() {
         return currentRoom;
     }
@@ -243,6 +318,10 @@ public class Game {
     public static String getRoomDescription(String roomName) {
         return roomDescriptions.getOrDefault(roomName, "You don't see anything special here.");
     }
+    
+   public static void print(Object obj) {
+	   gui.appendtext(obj.toString() + "\n");
+   }
    
 }
 
