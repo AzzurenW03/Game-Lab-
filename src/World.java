@@ -70,7 +70,7 @@ public class World {
         lockedRoom.lock(); 
        
 
-        graveyard.addExit('e', grandEntrance);      
+        graveyard.addExit('e', grandEntrance);
         grandEntrance.addExit('w', graveyard);      
         grandEntrance.addExit('n', blueDoorRoom);   
         blueDoorRoom.addExit('s', grandEntrance);   
