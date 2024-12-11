@@ -81,10 +81,8 @@ public class World {
         mainBedroom.addExit('w', creepyHallway);    
         creepyHallway.addExit('u', diningRoom);     
         diningRoom.addExit('d', creepyHallway);     
-        creepyHallway.addExit('s', kitchenRoom);    
-        kitchenRoom.addExit('n', creepyHallway);    
-        kitchenRoom.addExit('d', basement);         
-        basement.addExit('u', kitchenRoom);        
+        creepyHallway.addExit('s', kitchenRoom);       
+        kitchenRoom.addExit('d', basement);                
    
 
         

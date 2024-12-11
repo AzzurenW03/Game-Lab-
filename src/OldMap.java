@@ -6,7 +6,7 @@ public class OldMap extends Item {
 
     
     public void use() {
-        Game.print("You study the map and find a secret passage leading to the Basement.");
+        Game.print("You study the map and find a secret passage leading to the Basement. Go Down");
         
     }
 }
